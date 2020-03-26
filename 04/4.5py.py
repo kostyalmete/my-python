@@ -10,10 +10,12 @@ command2 = command2[4]
 command1 = command1.split(',')
 command2 = command2.split(',')
 
-command3 = command1 + command2
+command1 = set(command1)
+command2 = set(command2)
+
+command3 = set.intersection(command1, command2)
+
+command3 = list(command3)
 
 command3 = sorted(command3)
-
-command3 = [command3[0], command3[3], command3[6]]
-
 print(command3)

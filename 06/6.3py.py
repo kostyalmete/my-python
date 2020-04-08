@@ -17,7 +17,7 @@ access = {
 trunk = {
         '0/1': ['add', '10', '20'],
         '0/2': ['only', '11', '30'],
-        '0/4': ['del', '17'],
+        '0/4': ['del', '17']
     }
 
 for intf, vlan in access.items():
@@ -39,31 +39,26 @@ c_del = 'del'
 c_only = 'only'
 
 
-print('#' * 40)
+print('\n', '#' * 40, '\n')
 
 
-for tport, tlist in trunk.items():
-    vlanlist = []
-    print('inteface', tport)
-    for vlan in tlist:
-        str(vlan)
-        if vlan.isdigit() == True:
-            vlanlist.append(vlan)
-        else:
-            None
-    vlanlist = ' '.join(vlanlist)
-    if c_add in tlist:
-        print(trunk_template_mod)
-        print(' switchport trunk allowed vlan add {}'.format(vlanlist))
-    elif c_del in tlist:
-        print(trunk_template_mod)
-        print(' switchport trunk allowed vlan remove {}'.format(vlanlist)) 
-    elif c_only in tlist:
-        print(trunk_template_mod)
-        print(' switchport trunk allowed vlan {}'.format(vlanlist)) 
-    else: 
-        print('EROOR') 
-    
-
-
- 
+for tport, tlist in trunk.items(): 
+    vlanlist = [] 
+    print('inteface', tport) 
+    for vlan in tlist: 
+        str(vlan) 
+        if vlan.isdigit() == True: 
+            vlanlist.append(vlan) 
+        else: 
+            None 
+    vlanlist = ' '.join(vlanlist) 
+    for do in tlist:  
+        if do.isdigit() == False:  
+            dolist = do 
+        else:  
+            None  
+    for command in trunk_template:  
+        if command.endswith('allowed vlan'):  
+            print(' {} {} {}'.format(command, dolist, vlanlist)) 
+        else: 
+            print(' {}'.format(command))
